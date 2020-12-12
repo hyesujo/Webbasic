@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+ <p>
+     <label>prevent event on</label>
+     <input type="checkbox" name="eventprvent" id="prevent" value="on"/>
+ </p>
+ <p>
+     <a href="http://opentutorials.org" target="_blank">opentutorials</a>
+ </p>
+ <p><form action="http://opentutorial.org">
+ <input type="submit">
+</form>
+</p>
+<script>
+    document.querySelector('a').addEventListener(click, function(event){
+        if(document.getElementById('prevent').checked)
+        event.preventDefault();
+    });
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault();
+    });
+</script>    
+</body>
+</html>
