@@ -5,9 +5,53 @@
 <style>
   body {
    margin:0;
+   font-size: 0;
+   font-family: Arial;
   }
   .column {
+      padding: 0 2%;
+      width: 86%;
+      display: inline-block;
+      font-size: 15px;
+  }
+
+  .tab {
+      overflow: hidden;
+      border: none;
+      background-color: #f1f1f1;
+  }
+
+  .tab button {
+      background-color: inherit;
       float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+  }
+
+  .topright {
+      float: right;
+      cursor: pointer;
+      font-size: 28px;
+      padding-right: 15px;
+  }
+
+  .topright:hover {
+    color: red;  
+  }
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    font-size: 17px;
+  }
+
+  .tab button:hover {
+      background-color: #ddd;
   }
   .accordion {
       background-color: #eee;
@@ -16,9 +60,36 @@
       padding: 18px;
       width: 100%;
       border:none;
-      text-align: center;
+      text-align: left;
       outline: none;
+      font-size: 15px;
+      transition: 0.5s;
   }
+
+  .accordion:after {
+     content: '\002B';
+     color:#777;
+     font-weight: bold;
+     float: right;
+     margin-left: 5px;
+  }
+
+  .try::after {
+      content: '\2212';
+  }
+
+  .try, .accordion:hover {
+      background-color: #ccc;
+  }
+
+  .panel {
+      padding: 0 18px;
+      background-color: white;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.2s ease-out;
+  }
+
   .container {
     display: inline-block;
     cursor :pointer;
@@ -41,8 +112,10 @@
       transform : rotate(45deg) translate(-8px, -8px);
   }
   .icon-bar {
-  	width:90px;
+  	width:10%;
     background-color: #555;
+    display: inline-block;
+    vertical-align: top;
   }
   .icon-bar a {
    display: block;  
@@ -59,41 +132,149 @@
   
   .active {
    background-color: #4CAF50; 
+   cursor: pointer;
+  }
+
+  h2 {
+      text-align: center;
+      font-size: 20px;
+  }
+
+  .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color:#111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+      font-size: 20px;
+  }
+
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    color: #818181;
+    text-decoration: none;
+    font-size: 25px;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .sidenav .closebtn {
+      position: absolute;
+      top : 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+  }
+  
+  @media screen and (max-width:560px) {
+    .icon-bar {
+  	width:10%;
+    background-color: #555;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .icon-bar a {
+   display: block;  
+   text-align: center;
+   padding: 10px; 
+   transition: all 0.3s ease;
+   color: white;
+   font-size :20px;
+  }
   }
 </style>
 <body>
 
-<div class="icon-bar">
- <a class="active" href="#">
-    <div class="container" onclick="myFunction()">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
+<h2>Web</h2>
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" 
+    onclick="closeNav()">&times;</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>
+  </div>
+
+<div id="main">
+    <div class="icon-bar">
+    <a class="active" href="#">
+        <div class="container" onclick="myFunction()">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+    </a>
+    <a href="#"><i class="fa fa-search"></i></a>
+    <a href="#"><i class="fa fa-envelope"></i></a>
+    <a href="#"><i class="fa fa-globe"></i></a>
+    <a href="#"><i class="fa fa-trash"></i></a>
+    </div> 
+
+
+    <div class="column">
+
+        <button class="accordion">Section 1</button>
+            <div class="panel">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+        <button class="accordion">Section 2</button>
+            <div class="panel">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+                </p>
+            </div>
+        <button class="accordion">Section 3</button> 
+            <div class="panel">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
     </div>
- </a>
-  <a href="#"><i class="fa fa-search"></i></a>
-  <a href="#"><i class="fa fa-envelope"></i></a>
-  <a href="#"><i class="fa fa-globe"></i></a>
-  <a href="#"><i class="fa fa-trash"></i></a>
-</div> 
-<div class="column">
-    <button class="accordion">Section 1</button>
-        <div class="panel">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </div>
-    <button class="accordion">Section 2</button>
-        <div class="panel">
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
-            </p>
-        </div>
-    <button>Section 3</button> 
-        <div class="panel">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        </div>
+
+
+    <div class="tab">
+        <button class="tablinks" onclick="openCity(event, 'London')">
+        London
+        </button>
+        <button class="tablinks" onclick="openCity(event, 'Paris')">
+        Paris
+        </button>
+        <button class="tablinks" onclick="openCity(event, 'Tokyo')">
+        Tokyo
+        </button>
+    </div>
+
+    <div id="London" class="tabcontent">
+        <span onclick="this.parentElement.style.display='none'" class="topright">
+            &times
+        </span>
+        <h3>London</h3>
+        <p>London is the capital city of England.</p>
+    </div>
+
+    <div id="Paris" class="tabcontent">
+        <span onclick="this.parentElement.style.display='none'"
+        class="topright">&times</span>
+        <h3>Paris</h3>
+        <p>Paris is the capital of France.</p>
+    </div>
+
+    <div id="Tokyo" class="tabcontent">
+        <span onclick="this.parentElement.style.display='none'"
+        class="topright">&times</span>
+        <h3>Tokyo</h3>
+        <p>Tokyo is the capital of Japan.</p>
+    </div>
 </div>
+
+  
   <script>
       function myFunction() {
+        document.getElementById('mySidenav').style.width = "250px";
         let cs = document.getElementsByClassName("container");
         let pickproper = cs[0].className; //getElementsByClassName은 태그값 전체를 가져오는 거기 때문에 프로퍼티로 필요한 값을 특정해줘야함 
         let splitarr = pickproper.split(" ");
@@ -106,6 +287,37 @@
             }
         }    
       }
+
+    let classacc = document.getElementsByClassName('accordion');
+    for(let i = 0; i < classacc.length; i++) {
+        classacc[i].addEventListener('click', function() {
+            let toglacc = this.classList.toggle('try');
+            let panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+
+    function openCity(evt, cityName) {
+        let tabcontent = document.getElementsByClassName('tabcontent');
+        evt.currentTarget.className += " ontap";
+        for(let i=0; i < tabcontent.length; i ++) {
+            tabcontent[i].style.display = 'none';
+        } 
+        let tablinks = document.getElementsByClassName('tablinks');
+        for(let i =- 0; i < tablinks.length; i++) {
+            tablinks[i].className =
+            tablinks[i].className.replace(' ontap', "");
+        }
+        document.getElementById(cityName).style.display = 'block';
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0px";
+    }
   </script>
 </body>
 </html> 
