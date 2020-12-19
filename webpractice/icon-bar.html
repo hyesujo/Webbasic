@@ -3,6 +3,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+    * {
+        box-sizing: border-box;
+    }
   body {
    margin:0;
    font-size: 0;
@@ -187,6 +190,58 @@
    font-size :20px;
   }
   }
+  img {
+    overflow: hidden;
+    object-fit: cover;
+  }
+  .mySlides {
+    display: none;
+  } 
+  .slideshow-contaier {
+      position: relative;
+      margin: auto;
+  }
+  .text {
+    color: #f2f2f2;
+    font-size: 20px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom : 40px;
+    width: 100%;
+    text-align: center;
+  }
+ .numbertext {
+     color: #f2f2f2;
+     font-size: 18px;
+     padding: 8px 12px;
+     position: absolute;
+     top:0;
+ }
+.dot {
+    height: 12px;
+    width: 12px;
+    margin: 0 2px;
+    display: inline-block;
+    background-color: #bbb;
+    border-radius: 50%;
+    transition: background-color 0.6s ease;
+}
+
+.activeimg {
+    background-color: #717171;
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration : 1.5s;
+}
+@keyframes fade {
+    from {opacity: 0.4}
+    to {opacity: 1}
+}
+@media only screen and (max-width: 300px) {
+    .text {font-size:11px}
+}
 </style>
 <body>
 
@@ -200,6 +255,30 @@
     <a href="#">Clients</a>
     <a href="#">Contact</a>
   </div>
+
+<div class="slideshow-contaier">
+    <div class="mySlides fade">
+        <div class="numbertext">1 / 3</div>
+        <img src="../images/na1.jpg" width="100%;"height="500px;">
+        <div class="text">Caption one</div>
+    </div> 
+    <div class="mySlides fade">
+        <div class="numbertext">2 / 3</div>
+        <img src="../images/na2.jpg"width="100%;"height="500px;">
+        <div class="text">Caption Two</div>
+    </div>  
+    <div class="mySlides fade">
+        <div class="numbertext">3 / 3</div>
+        <img src="../images/na3.jpg"width="100%;"height="500px;">
+        <div class="text">Caption Tree</div> 
+    </div>
+    <br>
+    <div style="text-align:center; padding: 12px;">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+</div>
 
 <div id="main">
     <div class="icon-bar">
@@ -237,7 +316,7 @@
 
 
     <div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'London')">
+        <button class="tablinks" onclick="openCity(event, 'London')"  id="defaultOpen">
         London
         </button>
         <button class="tablinks" onclick="openCity(event, 'Paris')">
@@ -313,11 +392,33 @@
             tablinks[i].className.replace(' ontap', "");
         }
         document.getElementById(cityName).style.display = 'block';
+   
     }
-
+    document.getElementById("defaultOpen").click();
     function closeNav() {
         document.getElementById("mySidenav").style.width = "0px";
     }
+
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+        for(i = 0; i <slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if(slideIndex > slides.length) {slideIndex = 1}
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" activeimg","");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += ' activeimg';
+        setTimeout(showSlides, 2000);
+    }
+    
   </script>
 </body>
 </html> 
