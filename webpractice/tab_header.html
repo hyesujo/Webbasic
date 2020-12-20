@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/imggallery.css">
     <title>Document</title>
 </head>
 <style>
@@ -303,10 +304,73 @@ Oslo
 </div>
 
 <div class="clearfix"></div>
-
+<br>
 <div class="row">
     <div class="column">
-        <img src="../images/na4.jpg" style="width:100%">
+        <img src="../images/na4.jpg" style="width:100%" 
+        onclick="openModal();currentSlode(1)" class="hover-shadow cursor image">
+        <div class="overText">Click me!</div>
+    </div>
+    <div class="column">
+        <img src="../images/na3.jpg" style="width:100%" 
+        onclick="openModal();currentSlode(2)" class="hover-shadow cursor image">
+        <div class="overText">Click me!</div>
+    </div>
+    <div class="column">
+        <img src="../images/na2.jpg" style="width:100%" 
+        onclick="openModal();currentSlode(3)" class="hover-shadow cursor image">
+        <div class="overText">Click me!</div>
+    </div>
+    <div class="column">
+        <img src="../images/na1.jpg" style="width:100%" 
+        onclick="openModal();currentSlode(4)" class="hover-shadow cursor image">
+        <div class="overText">Click me!</div>
+    </div>
+</div>
+
+<div id="myModal" class="modal">
+    <span class="close cursor" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+        <div class="mySlides">
+            <div class="numbertext">1 / 4</div>
+            <img src="../images/na4.jpg" style="width: 100%;">
+        </div>
+
+        <div class="mySlides">
+            <div class="numbertext">2 / 4</div>
+            <img src="../images/na3.jpg" style="width: 100%;">
+        </div>
+
+        <div class="mySlides">
+            <div class="numbertext">3 / 4</div>
+            <img src="../images/na2.jpg" style="width: 100%;">
+        </div>
+
+        <div class="mySlides">
+            <div class="numbertext">4 / 4</div>
+            <img src="../images/na1.jpg" style="width: 100%;">
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+        <div class="caption-container">
+            <p id="caption"></p>
+        </div>
+
+        <div class="column">
+            <img class="demo cursor" src="../images/na4.jpg" style="width:100%" onclick="currentSlide(1)" alt="Nature and sunrise">
+            
+          </div>
+          <div class="column">
+            <img class="demo cursor" src="../images/na3.jpg" style="width:100%" onclick="currentSlide(2)" alt="Snow">
+          </div>
+          <div class="column">
+            <img class="demo cursor" src="../images/na2.jpg" style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
+          </div>
+          <div class="column">
+            <img class="demo cursor" src="../images/na1.jpg" style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
+          </div>
     </div>
 </div>
 
@@ -315,41 +379,7 @@ Oslo
         <img src="" alt="">
     </div>
 </div>
-<script>
-    function onCity(cityName, elmnt, color) {
-        let tabcontent = document.getElementsByClassName("tabcontent");
-    for(let i=0; i <tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    let tablinks = document.getElementsByClassName('tablink');
-    for(i =0; i < tablinks.length; i++) {
-        tablinks[i].style.backgroundColor = "";
-    }
-    document.getElementById(cityName).style.display = "block";
-    elmnt.style.backgroundColor = color;
-    }
-    document.getElementById('defaultOpen').click();
-
-    function openCity(evt, cityName) {
-        let overtabcontent = document.getElementsByClassName("overtabcontent");
-        for(let i = 0; i < overtabcontent.length; i++) {
-            overtabcontent[i].style.display = 'none';
-        }
-        let tablinks = document.getElementsByClassName("overtablinks");
-        for(let i =0; i < tablinks.length; i++) {
-            tablinks[i].className =
-
-            tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
-    function openNav() {
-        document.getElementById("myNav").style.height = "100%";
-    }
-    function closeNav() {
-        document.getElementById("myNav").style.height = "0%";
-    }
+<script type="text/javascript" src="../js/img_gallery.js">
 </script>
 </body>
 </html>
