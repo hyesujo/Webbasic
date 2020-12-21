@@ -9,47 +9,6 @@
       font-family: Arial;
       }
   
-
-  .wrap {
-    background-color:#f1f1f1;
-    padding: 20px;
-    font-family: Arial;
-  }
-  .portpolio  {
-      max-width: 100%;
-      margin:auto;
-  }
-  h1 {
-      margin:0px;
-      font-size: 50px;
-      word-break: break-all;
-  }
-
-  .row {
-      margin: 10px -16px;
-  }
-
-  .row,
-  .row > .column {
-      padding: 8px;
-  }
-
-  .content {
-    background-color: white;
-    padding: 10px; 
-  }
-
-  .row::after {
-    content: "";
-    display: table;
-    clear:both;
-  }
-
-  .column {
-    float: left;
-    width: 33.33%;
-   
-  }
           
   .tab {
     float: left;

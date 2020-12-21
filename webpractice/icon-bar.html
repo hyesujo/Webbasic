@@ -13,7 +13,7 @@
   }
   .column {
       padding: 0 2%;
-      width: 86%;
+      width: 90%;
       display: inline-block;
       font-size: 15px;
   }
@@ -412,7 +412,7 @@
         slideIndex++;
         if(slideIndex > slides.length) {slideIndex = 1}
         for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" activeimg","");
+         dots[i].className = dots[i].className.replace(" activeimg","");
         }
         slides[slideIndex-1].style.display = "block";
         dots[slideIndex-1].className += ' activeimg';
