@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+        form {
+            border: 3px solid #f1f1f1;
+            font-family: Arial;
+        }
+
+        .container {
+            padding: 20px;
+            background-color: #f1f1f1;
+        }
+
+        input[type=text], input[type=submit] {
+            width:100%;
+            padding: 12px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+        }
+
+        .a1 {
+            background-color: white;
+        }
+        
+        input[type=checkbox] {
+            margin-top: 16px;
+            background-color: skyblue;
+        }
+
+        input[type=submit] {
+            background-color: beige;
+            border: none;
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>CSS Newsletter</h2>
+
+    <form action="/action.php">
+        <div class="container">
+            <h2>Subscribe to our Newsletter</h2>
+            <p>Lorem ipsum text about why you should subscribe to our newsletter blabla. Lorem ipsum text about why you should subscribe to our newsletter blabla.</p>
+        </div>
+
+        <div class="container a1">
+            <input type="text" name="name" placeholder="name" required>
+            <input type="text" name="email" placeholder="Email address" required>
+            <label>
+                <input type="checkbox" name="subscribe" checked="checked">
+                Daily Newsletter
+            </label>
+        </div>
+
+        <div class="container">
+            <input type="submit" value="Subscribe"> 
+        </div>
+    </form>
+</body>
+</html>

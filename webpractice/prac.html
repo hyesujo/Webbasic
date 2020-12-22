@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin:0;
+        }
+        .image {
+            width:100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        div.main {
+            position: relative;
+        }
+    
+
+         .prev, .next {
+            position: absolute;
+            top: 50%;
+            color: white;
+            font-size: 25px;
+            cursor: pointer;
+            margin-top: -22px;
+            padding: 0px 12px;
+         }
+
+         .next {
+             right: 0px;
+         }
+    </style>
+</head>
+<body>
+    <div class="main">
+         <div class="image a1"></div>
+
+         <a class="prev">&#60;</a>
+         <a class="next">&#62;</a>
+    </div>
+    
+<script>
+let arr = ["../images/na1.jpg","../images/na2.jpg","../images/na3.jpg"];
+let image = document.getElementsByClassName("image");
+    image[0].style.backgroundImage = `url(${arr[0]})`;
+    image[0].style.backgroundSize = "100%";
+    image[0].style.backgroundRepeat = "no-repeat";
+
+    let index = 0;
+let btn = document.getElementsByClassName("next")[0];
+btn.addEventListener('click', function() {
+    index = index + 1;
+    if(index > 2) {index = 0}
+    image[0].style.backgroundImage = `url(${arr[index]})`;
+    image[0].style.backgroundSize = "100%";
+    image[0].style.backgroundRepeat = "no-repeat";
+});
+
+let btnpre = document.getElementsByClassName("prev")[0];
+btnpre.addEventListener('click', function() {
+  index = index -1;
+  if(index < 0) {index = 2}
+  image[0].style.backgroundImage = `url(${arr[index]})`;
+  image[0].style.backgroundSize = '100%';
+  image[0].style.backgroundRepeat = "no-repeat";
+});
+
+
+</script>
+</body>
+</html>

@@ -9,7 +9,6 @@
       font-family: Arial;
       }
   
-          
   .tab {
     float: left;
     width: 10%;
@@ -180,7 +179,71 @@
     margin-left: 50px;
   } 
   
+  .open-btn {
+    background-color: #555;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    border-radius: 5px;
+    font-size: 15px;
+    width: 280px;
+  }
+
+  .form-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+  }
+
+  .form-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+  }
+
+  .form-container input[type=text], .form-container input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background:#f1f1f1;
+    outline: none;
+  }
+  
+  .form-container input[type=text]:focus,
+   .form-container input[type=password]:focus {
+     background-color: #ddd;
+     outline: none;
+   }
+
+   .form-container .btn {
+     background-color: rgb(165, 160, 233);
+     color: white;
+     border: none;
+     outline: none;
+     width: 100%;
+     margin-bottom: 10px;
+     padding: 16px 20px;
+     opacity: 0.8;
+     font-size: 16px;
+   }
+
+   .form-container .cancel {
+     background-color: tomato;
+   }
    
+   .btn:hover {
+     opacity: 1;
+   }
+
   @media screen and (max-height: 450px) {
     .sidenav {padding-top:15px;}
     .sidenav a {font-size: 18px;}
