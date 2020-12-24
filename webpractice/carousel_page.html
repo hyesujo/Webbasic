@@ -6,11 +6,18 @@
     <link rel="stylesheet" href="../css/carousel.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Document</title>
-    <style>
-        
-    </style>
 </head>
 <body>
+<div id="curtainNav" class="overlay">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="overlay-content">
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+    </div>
+</div>
+
 <button onclick="topFunction()" id="topBtn" title="Go to top">		
 &#9650;</button>
 
@@ -23,7 +30,7 @@
         <a href="#" class="alink feat">FEATURES</a>
     </div>
 
-    <a href="#" class="alink">☰ MENU</a>
+    <a href="#" class="alink" onclick="openNav()">☰ MENU</a>
 
     <div class="topnav-right">
         <a href="#" class="alink">search <i class="fa fa-fw fa-search"></i></a>
