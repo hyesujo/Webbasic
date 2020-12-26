@@ -222,7 +222,7 @@ img {
  opacity: 1;
 }
 
-input[type=text], input[type=password] {
+.container > input[type=text],.container > input[type=password] {
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -231,7 +231,7 @@ input[type=text], input[type=password] {
     background: #f1f1f1;
 }
 
-input[type=text]:focus, input[type=password]:focus {
+.container > input[type=text]:focus, .container > input[type=password]:focus {
     background-color: #ddd;
     outline: none;
 }
@@ -341,6 +341,10 @@ input[type=text]:focus, input[type=password]:focus {
     transition: 0.3s;
 }
 
+.overlay a:hover {
+    color: white;
+}
+
 .overlay .closebtn {
     position: absolute;
     top: 20px;
@@ -348,6 +352,101 @@ input[type=text]:focus, input[type=password]:focus {
     font-size: 60px;
 }
 
+ul {
+ margin:0;
+ padding:0;
+}
+
+ul li {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    list-style-type: none;
+    background: #eee;
+    font-size: 18px;
+    transition: 0.2s;
+    -webkit-user-select: none;
+    -ms-user-selcect:none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+ul li:nth-child(odd) {
+   background: #f9f9f9;
+}
+
+ul li:hover {
+    background:#ffd151;
+}
+ul li.checked {
+  background: #d58400;
+  color: white;
+}
+
+ul li.checked::before {
+    content: '';
+    position: absolute;
+    border-color: white;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+}
+
+.closeSpan {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 12px 16px 12px 16px;
+}
+
+.closeSpan:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+.header {
+    background-color: #698bb7;
+    padding: 30px 40px;
+    color: white;
+    text-align: center;
+}
+
+.header:after {
+    content:'';
+    display: table;
+    clear:both;
+}
+
+.header > input {
+    margin: 0;
+    border:none;
+    border-radius: 0;
+    width: 75%;
+    float: left;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.addBtn {
+    padding: 10px;
+    width:25%;
+    background:black;
+    color: white;
+    float:left;
+    text-align: center;
+    font-size:16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 0;
+}
+
+.addBtn:hover {
+    background-color: #262f3b;
+}
 @media screen and (max-height: 450px) {
     .overlay a {font-size: 20px}
     .overlay .closebtn {
@@ -355,6 +454,21 @@ input[type=text]:focus, input[type=password]:focus {
     top: 15px;
     right: 35px;
     }
+  }
+
+  #listbutton {
+      width: 100%;
+      background-color: black;
+      color: white;
+      font-size: 20px;
+      border:none;
+      padding: 12px 15px;
+      outline: none;
+      transition: 0.3s;
+  }
+
+  #listbutton:hover {
+      background-color: #474e5d;
   }
 @media screen and (max-width: 400px) {
     .clearfix >.cancelbtn, .clearfix > .signupbtn {

@@ -175,9 +175,20 @@
             </div>
         </div>
     </div>
-
 </div>
 
+<div id="mydiv" class="header"> 
+   <h2>Subject of the photo you want to see</h2>
+   <input type="text" id="myInput" placeholder="Photo request">
+   <span onclick="newPhoto()" class="addBtn">Add</span>
+</div>
+
+<ul id="myUl">
+    <li class='checked'>Nature</li>
+    <li>City</li>
+    <li>People</li>
+</ul>
+<input type="button" id="listbutton" value="Request" onclick="alertbtn()">
 <script type="text/javascript" src="../js/carousel.js">
 </script>
 </body>
