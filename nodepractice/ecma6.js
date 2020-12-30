@@ -897,6 +897,7 @@ console.log(americano);
 console.log(latte);
 
 const fs = require('fs');
+const { resolve } = require('path');
 
 const openFileAndPrint = path => fileName => fs.readFile(path + 
       fileName, (err, data) => {
@@ -1015,4 +1016,125 @@ aveStudentList.filter(ave => ave.age > 22 && ave.age < 30).map(ave => ave.math)
 .reduce((previous, current, index, array) => previous + (current / array.length), 0);
 
 console.log('average:', between21to30StudentAverage);
+
+const promiseFirst = 
+new Promise(resolve => resolve(1)).then(result => `${result + 10}`); 
+
+const promiseSecond =
+ new Promise(resolve => resolve(1)).then(result => `${result + 20}`);
+
+ Promise.all([promiseFirst, promiseSecond]).then(result => {
+    console.log("result",result);
+    console.log('sum', Number(result[0]) + Number(result[1]));
+ });
+
+
+ const printSomething = require('./119_exports');
+
+ printSomething.printHelloex();
+ printSomething.printMessage2('exports bye');
+
+//  const contents = 'hello\nbye\n안녕';
+
+//  fs.writeFile('./message.txt', contents, function(err) {
+//      if (err) {
+//          return console.log(err);
+//      }
+//      console.log('The file was saved!');
+//  } ); 파일생성
+
+//  const textdata = fs.readFileSync('./message.txt');
+//  const textString = textdata.toString();
+//  console.log('sync work01');
+//  console.log(textString);  동기방식
+
+ fs.readFile('./message.txt', (err,data) => {
+     if(err) throw err;
+     console.log('async work01');
+     console.log(data.toString());
+ })
+
+ fs.readFile('./message.txt', (err,data) => {
+     if(err) throw err;
+     let contents = data.toString();
+     contents = 'replaced';
+     fs.writeFileSync('./message.txt',contents);
+ });
+
+ const fsList = [1,2,3,4,5];
+
+ fsList.forEach(item =>
+     fs.appendFile('./chapters.text', `chapter ${item}\n`, (err,data) => {
+        if(err) throw err;
+        console.log('saved');
+ }));
+
+ const dirName = `${__dirname}/img`;
+
+ if (!fs.existsSync(dirName)) {
+     fs.mkdirSync(dirName);
+ }
+
+ const testFolder = './';
+
+ const filenameList = fs.readdirSync(testFolder);
+
+ filenameList.forEach((fileName) => {
+     console.log("fff",fileName);
+ });
+
+ const jsonList = [
+    {name: 'kyeongrok', age: 31, department: 'development'},
+    {name: 'jihyun', age: 31, math: 95, department: 'design'},
+ ];
+
+ fs.writeFile('./list.json', JSON.stringify(jsonList), (err) => {
+   if(err) throw err;
+   console.log('json saved');
+ });
+
+ fs.readFile('./list.json', (err, data) => {
+    if(err) console.log(err);
+    const json = JSON.parse(data.toString());
+    console.log('name:', json[0].name);
+    console.log('name:', json[1].name);
+ });
+
+ const renameFile = (fromFilepathName, toFilepathName) => {
+     fs.rename(fromFilepathName, toFilepathName, (err) => {
+        if(err) console.log(`ERROR: ${err}`);
+     });
+ };
+
+ const fromFilepathName = "./hello.txt";
+ const toFilepathName = './bye.txt';
+
+ renameFile(fromFilepathName, toFilepathName);
+
+//  const http = require('http');
+//  const server = http.createServer();
+
+ //이벤트 연결
+//  server.on('requst', () => {
+//     console.log('Request');
+//  });
+
+//  server.on('connection', () => {
+//     console.log('Connection');
+//  });
+
+//  server.on('close', () => {
+//     console.log('close'); 
+//  });
+
+//  server.listen(5000, () => {
+//     console.log('서버가 동작중입니다. http://127.0.0.1:5000');
+//  });
+
+//  const testClose = function() {
+//      server.close();
+//      console.log('서버가 종료돠었습니다. http://127.0.0.1:5000');
+//  }
+
+//  setTimeout(testClose, 10000);
 
