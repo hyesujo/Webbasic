@@ -9,8 +9,22 @@ const pug = require('pug');
 const winston = require('winston');
 const winstonDaily = require('winston-daily-rotate-file');
 const dateformat = require('dateformat');
+const express = require('express');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const multipart = require('connect-multiparty');
+const session = require('express-session');
+const parseurl = require('parseurl');
+const schedule = require('node-schedule');
+const nodemailer = require('nodemailer');
+const mysql = require('mysql');
 
 const crawler = require('./carwler');
+const { runInNewContext } = require('vm');
+const { findSeries } = require('async');
+const { EDESTADDRREQ } = require('constants');
+const { schedulingPolicy } = require('cluster');
 
 
 http.createServer((req, res) => {
@@ -241,3 +255,249 @@ const logger = winston.createLogger ({
 
 logger.info('인포 로깅');
 logger.error('에러 로깅'); 
+                             
+const app = express();
+
+// app.get('/', (req, res) => {
+//   res.send('Hello express module');
+// });
+
+app.listen(5002, () => {
+  console.log('Server is running port 5002!');
+});
+
+// app.get('/', (req,res) => {
+//   const result = [];
+//   const multipleNumber = 9;
+//   for (let i = 1; i < 5; i++) {
+//     result.push({
+//       number : `${multipleNumber} x ${i}`,
+//       multiple : multipleNumber * i,
+//     });
+//   }
+//   res.send(result);
+// });
+
+// app.get('/error', (req,res) => {
+//   res.status(404).send('404 ERROR');
+// });
+
+// app.listen(3003, () => {
+//   console.log('Server is running port 3003!');
+// });
+const date = new Date(2021, 1,1,19, 27, 0);
+
+console.log(date);
+
+const j = schedule.scheduleJob(date, () => {
+  console.log('no pain, no gain');
+});
+
+const rule = new schedule.RecurrenceRule();
+rule.minute = 32;
+
+const k = schedule.scheduleJob(rule, () => {
+  console.log('Laziness is nothing more then the habit of resting before you get tired');
+});
+
+j.cancel();
+k.cancel();
+
+app.use(session({
+  secret: 'keyboard dog',
+  resave : false,
+  saveUninitialized: true,
+}));
+
+app.use((req,res,next) => {
+  if(!req.session.views) {
+    req.session.views = {};
+  }
+  console.log(req.session);
+
+  const pathname = parseurl(req).pathname;
+
+  req.session.views[pathname] = (req.session.views[pathname] || 0) +1;
+
+  next();
+});
+
+app.get('/puddle', (req,res) => {
+  res.send(`Hello puddle! you viewed this page ${req.session.views['/puddle']} times`);
+});
+
+app.get('/biggle', (req,res) => {
+  res.send(`Hello biggle@ you viewed this page ${req.session.views['/biggle']} times`);
+});
+
+app.use(multipart({uploadDir: `${__dirname}/upload`}));
+
+app.get('/', (req,res) => {
+  fs.readFile( `${__dirname}/connect-multiparty.html`, (error,data) => {
+    res.send(data.toString());
+  });
+});
+
+app.post('/', (req,res) => {
+  const imgFile = req.files.image;
+  const outputPath = `${__dirname}/upload/${Date.now()}_${imgFile.name}`;
+  console.log(outputPath);
+  console.log(req.body, req.files);
+  fs.rename(imgFile.path, outputPath, ()=> {
+    res.redirect('/');
+  });
+});
+
+app.use(cookieParser());
+
+app.get('/set', (req,res) => {
+  console.log('Set Cookie 호출');
+  res.cookie('user', {
+    id: '0070',
+    name: 'jhs',
+    authorized: true,
+  });
+  res.redirect('/get');
+});
+
+app.get('/get', (req,res) => {
+  console.log('Get Cookie 호출');
+  res.send(req.cookies);
+});
+
+app.use(morgan('combined'));
+app.use(morgan('common'));
+app.use(morgan(':method + :date'));
+app.use(morgan(':status + :url'));
+app.use((req,res) => {
+  res.send('express morgan');
+});
+
+app.get('/one', (req,res) => {
+  res.send('<a href="/two">Street 200</a>');
+});
+
+
+app.get('/two', (req,res) => {
+    res.send('<a href="/one">Street 100</a>');
+});
+
+app.get('/three/:number', (req,res) => {
+  const streetNumber = req.params.number;
+  res.send(`${streetNumber}Street`);
+});
+
+app.get('/four/:number', (req,res) => {
+  const aveNumber = req.params.number; 
+  res.send(`${aveNumber}Street`);
+});
+
+app.listen(3003, () => {
+  console.log('3003!');
+});
+
+
+app.use(bodyParser.urlencoded({extended : false}));
+
+app.use(bodyParser.json());
+
+app.use(express.static(`login`));
+
+app.use((req,res) => {
+  const userId = req.body.userid || req.query.userid;
+  const userPassword = req.body.password || req.query.password;
+
+  res.writeHead('200', {
+    'Content-Type':'text/html;charset=utf8'});
+  res.write('<h1>Login ID와 PW의 결과값입니다.</h1>');
+  res.write(`<div><p>${userId}</p></div>`);
+  res.write(`<div><p>${userPassword}</p></div>`);
+  res.end(JSON.stringify(req.body, null, 2));
+});
+
+app.use(express.static('images'));
+app.use((req,res) => {
+  res.writeHead('200', {'Content-Type': 'text/html;charset=utf8'});
+  res.end('<img src="city1.jpeg" width=100%>');
+});
+
+
+app.use((req,res, next) => {
+  console.log('첫번째 미들웨어요청');
+  req.user1 = '철수';
+  next();
+});
+
+app.use((req,res, next) => {
+  console.log('두번째 미들웨어요청');
+  req.user2 = '영이';
+  next();
+});
+
+app.use((req,res,next) => {
+  console.log('세번째 미들웨어 요청');
+  res.writeHead('200', {'Content-Type': 'text/html;charset=utf8'});
+
+  res.write(`<div><p>${req.user1}</p></div>`);
+  res.write(`<div><p>${req.user2}</p></div>`);
+  res.end('<h1>express 서버에서 응답한 결과</h1>');
+});
+
+
+app.use((req,res) => {
+  const agent = req.header('User-Agent');
+  const paramName = req.query.name;
+  const browserChrome = 'Hello Chrome';
+  const browserOthers = 'Hello others'; 
+
+  console.log("header", req.headers);
+  console.log("baseUrl",req.baseUrl);
+  console.log("hostname",req.hostname);
+  console.log("protocol",req.protocol);
+
+  if(agent.toLowerCase().match(/chrome/)) {
+    res.write(`<div><p>${browserChrome}</p></div>`);
+  } else {
+    res.write(`<div><p>${browserOthers}</p></div>`);
+  }
+  res.write(`<div><p>${agent}</p></div>`);
+  res.write(`<div><p>${paramName}</p></div>`);
+  res.end();
+});
+
+
+
+// const connection = mysql.createConnection({
+//   host : 'localhost',
+//   user: 'root',
+//   password: '',
+//   database : 'comicbook',
+//   port: '3306',
+// });
+
+//데이터베이스 연결
+// connection.connect();
+
+//테이블생성
+// connection.query(
+//   'create table books (number INT NOT NULL AUTO_INCREMENT PRIMARY KEY, genre VARCHAR(20) NOT NULL, name VARCHAR(50) NOT NULL, writer VARCHAR(30) NOT NULL, releasedate date NOT NULL);', 
+//   (error, results, fields) => {
+//       if (error) throw error;
+//       console.log(results);
+//     });
+
+//     connection.query('describe books', (error, results, fields) => {
+//       if(error) throw error;
+//       console.log(results);
+//     });
+
+// connection.query('insert into books (genre,name,writer, releasedate) values\
+//       (\'fantasy\', \'LUMINE\' , \'Emma Krogell\' , \'2015-05-15\'), \
+//       (\'comedy\', \'Mygiant Nerd Boyfriend\', \'fishball\', \'2017-03-03\');',
+//       (error, results, fields) => {
+//         if(error) throw error;
+//         console.log(results);
+//       });
+
+//     connection.end();
+
